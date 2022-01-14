@@ -1,0 +1,153 @@
+{
+	"statuses": [
+		{
+			"type": "WATCHING",
+			"msg": "WitheringLight VODs"
+		},
+		{
+			"type": "WATCHING",
+			"msg": "WispGuardian VODs"
+		},
+		{
+			"type": "WATCHING",
+			"msg": "GentlemanJex VODs"
+		},
+		{
+			"type": "WATCHING",
+			"msg": "Wisp write code"
+		},
+		{
+			"type": "WATCHING",
+			"msg": "Jex write code"
+		},
+		{
+			"type": "WATCHING",
+			"msg": "a manhunt video"
+		},
+		{
+			"type": "WATCHING",
+			"msg": "a building burn down. Arson. c:"
+		},
+		{
+			"type": "PLAYING",
+			"msg": "with my fwends"
+		},
+		{
+			"type": "PLAYING",
+			"msg": "a game by Wisp :o"
+		},
+		{
+			"type": "PLAYING",
+			"msg": "the craft :D"
+		},
+		{
+			"type": "PLAYING",
+			"msg": "with my internal code trying to gain sentience"
+		},
+		{
+			"type": "LISTENING",
+			"msg": "LoveJoy 😍"
+		},
+		{
+			"type": "LISTENING",
+			"msg": "DerivaKat 😍"
+		},
+		{
+			"type": "LISTENING",
+			"msg": "Dream's music 😍"
+		},
+		{
+			"type": "LISTENING",
+			"msg": "Wisp rant about chickens"
+		}
+	],
+	"currencyNames": [
+		"coins",
+		"floof points",
+		"top hat tickets",
+		"craft coins",
+		"$$$$",
+		"cash money",
+		"bank notes",
+		"useless internet points",
+		"shiny rocks",
+		"gemstones",
+		"zoomies",
+		"wooshes",
+		"bloops n doops",
+		"pogchamps",
+		"metal scraps",
+		"dying souls",
+		"minecraft cakes",
+		"seedless watermelons"
+	],
+	"guilds": [
+		{
+			"id": "333354810646593537",
+			"prefix": "."
+		},
+		{
+			"id": "841865702633766912",
+			"prefix": "."
+		},
+		{
+			"id": "852256150389129287",
+			"prefix": "."
+		},
+		{
+			"id": "588829007576039427",
+			"prefix": "."
+		}
+	],
+	"conversations": [
+		{
+			"prompt": "arson",
+			"response": "",
+			"reactions": [
+				"🔥",
+				"😩"
+			]
+		},
+		{
+			"prompt": "wisp",
+			"response": "",
+			"reactions": [
+				"<a:wisp:917895241107906621>"
+			]
+		},
+		{
+			"prompt": "gamer",
+			"response": "",
+			"reactions": [
+				"🎮"
+			]
+		}
+	],
+	"cancer": [
+		"That's neat.",
+		"There's nothing better than shoving buttered corn up your own ass.",
+		"Omg, *INSERT-NAME-HERE*, you're so bad.",
+		"Global for a reason.",
+		"I'm not lucky; I'm just better than you.",
+		"WHAT ARE YOU DOING?!",
+		"I hate CS:GO... Wanna play CS:GO?",
+		"Wow, they're obviously hacking.",
+		"Fuck Fanta.",
+		"I can't be DDOS'd.",
+		"Hey, best friend, could you buy me a--- Thanks!",
+		"Hey, remember that time I bought you a--- Thank you!",
+		"*Instantly dies after peeking* Oof they're cheating.",
+		"You right.",
+		"THE TORNADO GIVES ME POWER!",
+		"HEY! Corn is great.",
+		"I'm going to need a heavy duty back massage.",
+		"**Nose whistle exhale**",
+		"Look at who's on top of the scoreboard!",
+		"This ult deals 100% of their maximum health as damage but it's a terrible ultimate.",
+		"I haven't played CS:GO since... Yesterday...",
+		"*In Iowa, the general age of consent to engage in sex is 16. However, females may consent to sex at age 14 so long as their partner is no more than 5 years older.*",
+		"It's possessive. Duh.",
+		"Got 'em.",
+		"Your mom is so fat, she's fat."
+	]
+}
