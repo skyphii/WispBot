@@ -150,6 +150,21 @@
 			"reactions": [
 				""
 			]
+		},
+		{
+			"prompt": "coyote",
+			"response": "",
+			"reactions": [
+				"🐕"
+			]
+		},
+		{
+			"prompt": "chamber",
+			"response": "",
+			"reactions": [
+				"<:chamber:1002607375154417704>",
+				"🤢"
+			]
 		}
 	],
 	"cancer": [
