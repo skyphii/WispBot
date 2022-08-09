@@ -6,19 +6,15 @@
 		},
 		{
 			"type": "WATCHING",
-			"msg": "WispGuardian VODs"
+			"msg": "WispGuardian videos"
 		},
 		{
 			"type": "WATCHING",
-			"msg": "GentlemanJex VODs"
+			"msg": "NGKaktusz VODs"
 		},
 		{
 			"type": "WATCHING",
 			"msg": "Wisp write code"
-		},
-		{
-			"type": "WATCHING",
-			"msg": "Jex write code"
 		},
 		{
 			"type": "WATCHING",
@@ -59,12 +55,19 @@
 		{
 			"type": "LISTENING",
 			"msg": "Wisp rant about chickens"
+		},
+		{
+			"type": "LISTENING",
+			"msg": "CoopaPoopa rage 😡"
+		},
+		{
+			"type": "LISTENING",
+			"msg": "Kaktusz go SHEEEEEESH"
 		}
 	],
 	"currencyNames": [
 		"coins",
 		"floof points",
-		"top hat tickets",
 		"craft coins",
 		"$$$$",
 		"cash money",
@@ -79,23 +82,35 @@
 		"metal scraps",
 		"dying souls",
 		"minecraft cakes",
-		"seedless watermelons"
+		"seedless watermelons",
+		"coop-coins",
+		"sheeshes",
+		"thorns"
 	],
 	"guilds": [
 		{
+			"name": "Wisp",
 			"id": "333354810646593537",
 			"prefix": "."
 		},
 		{
+			"name": "Light",
 			"id": "841865702633766912",
 			"prefix": "."
 		},
 		{
+			"name": "Gaming Gang",
 			"id": "852256150389129287",
 			"prefix": "."
 		},
 		{
-			"id": "588829007576039427",
+			"name": "Coop",
+			"id": "840019013417697291",
+			"prefix": "."
+		},
+		{
+			"name": "Kaktusz",
+			"id": "611394586023034880",
 			"prefix": "."
 		}
 	],
@@ -120,6 +135,20 @@
 			"response": "",
 			"reactions": [
 				"🎮"
+			]
+		},
+		{
+			"prompt": "christian minecraft server",
+			"response": "Christian Minecraft-- Huh? Are you lost?",
+			"reactions": [
+				""
+			]
+		},
+		{
+			"prompt": "why are you talking about me",
+			"response": "Get over yourself 🙄",
+			"reactions": [
+				""
 			]
 		}
 	],

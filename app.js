@@ -2,6 +2,7 @@ const config = require("./config.json");
 const token = require("./token.json");
 const streamers = require("./streamers.json");
 const data = require("./data.json");
+const userList = require("./userList.json");
 const Discord = require("discord.js");
 const fs = require("fs");
 const bot = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Discord.Intents.FLAGS.GUILD_MEMBERS, Discord.Intents.FLAGS.DIRECT_MESSAGES], partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER'] });
@@ -54,19 +55,32 @@ bot.ws.on('INTERACTION_CREATE', async (interaction) => {
 });
 
 // Message
+var lastBotChannel = null;
 bot.on("messageCreate", async (message) => {
+    // bot check
     if(message.author.bot && message.author.id != bot.user.id) {
-        var r = Math.floor(Math.random() * (100 - 1 + 1) + 1);
-        if(r <= 25) {
-            message.channel.send("**Silence, bots.**");
-        }
-    }
-    if(message.channel.type === "DM") return;
+        if(message.channel.id == lastBotChannel) {
+            var r = Math.floor(Math.random() * (100 - 1 + 1) + 1);
+            if(r <= 25) {
+                message.channel.send("**Silence, bots.**");
+            }
+        }else lastBotChannel = message.channel.id;
+    }else lastBotChannel = null;
+
+    // ignored user check
+    var ignore = userList.ignored;
+    var doIgnore = false;
+    ignore.forEach((u)=>{
+        if(message.author.id == u.id) doIgnore = true;
+    });
+    if(doIgnore) return;
 
     handleResponses(message);
 
+    if(message.channel.type === "DM" || message.author.bot) return;
+
     let mentions = message.mentions.users;
-    if(mentions > 0 && mentions.first().id == bot.user.id) {
+    if(mentions.size > 0 && mentions.first().id == bot.user.id) {
         let split = message.content.split(" ").slice(1);
         handleGuildSettings(message, split);
     }

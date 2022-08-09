@@ -34,7 +34,7 @@ module.exports.run = async (bot, message, args) => {
   var winnings = 0;
   let roll = Math.floor(Math.random() * 101);
   if(roll == 0) {
-    let multiplier = Math.floor(Math.random() * (10 - 4 + 4) + 4); // 4-10 multiplier
+    let multiplier = 4 + Math.floor(Math.random() * 7); // 4-10 multiplier
     winnings = bet * multiplier;
     message.reply(`The coin landed on a side that was hidden in the 6th dimension! **[+${winnings} ${currency.cname()}]**`);
   }else if(roll <= 40) {
