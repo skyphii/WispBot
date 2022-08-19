@@ -7,12 +7,16 @@ module.exports.run = async (bot, message, args) => {
   var numMsgs = parseInt(args[0]);
   var channel = message.channel;
 
-  message.delete();
+  try {
+    await message.delete();
+  }catch(e) {}
   if(numMsgs > 100) return message.reply("**Purge** is limited to 100 messages.");
   
   var messages = await channel.messages.fetch({ limit:numMsgs });
-  messages.forEach(function(msg) {
-    msg.delete();
+  messages.forEach(async function(msg) {
+    try {
+      await msg.delete();
+    }catch(e) {}
   });
 };
 

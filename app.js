@@ -5,7 +5,8 @@ const data = require("./data.json");
 const userList = require("./userList.json");
 const Discord = require("discord.js");
 const fs = require("fs");
-const bot = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Discord.Intents.FLAGS.GUILD_MEMBERS, Discord.Intents.FLAGS.DIRECT_MESSAGES], partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER'] });
+const { GatewayIntentBits, Partials } = require('discord.js');
+const bot = new Discord.Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent], partials: [Partials.Message, Partials.Channel, Partials.Reaction, Partials.User] });
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 
@@ -55,17 +56,9 @@ bot.ws.on('INTERACTION_CREATE', async (interaction) => {
 });
 
 // Message
-var lastBotChannel = null;
 bot.on("messageCreate", async (message) => {
     // bot check
-    if(message.author.bot && message.author.id != bot.user.id) {
-        if(message.channel.id == lastBotChannel) {
-            var r = Math.floor(Math.random() * (100 - 1 + 1) + 1);
-            if(r <= 25) {
-                message.channel.send("**Silence, bots.**");
-            }
-        }else lastBotChannel = message.channel.id;
-    }else lastBotChannel = null;
+    botCheck(message);
 
     // ignored user check
     var ignore = userList.ignored;
@@ -88,6 +81,26 @@ bot.on("messageCreate", async (message) => {
     handleCommand(message);
 });
 
+var lastSilence = new Date();
+lastSilence.setHours(lastSilence.getHours()+12);
+function botCheck(message) {
+    if(message.author.bot && message.author.id != bot.user.id) {
+        message.channel.messages.fetch({ limit: 2 })
+            .then(messages => {
+                if(messages.at(0).channelId === messages.at(1).channelId && messages.at(1).author.id != bot.user.id) {
+                    var r = Math.floor(Math.random() * (100 - 1 + 1) + 1);
+                    const date = new Date();
+                    const difference = Math.abs(date-lastSilence) / (60*60*1000);   // difference in hours
+                    if(r <= 25 && difference >= 1) {                                // 1h cooldown
+                        message.channel.send("**Silence, bots.**");
+                        lastSilence = date;
+                    }
+                }
+            })
+            .catch(console.error);
+    }
+}
+
 function handleCommand(message) {
     let prefix = config.prefix;
     let messageArray = message.content.split(" ");
@@ -95,7 +108,7 @@ function handleCommand(message) {
     let args = messageArray.slice(1);
 
     // Check for prefix
-    if (!cmd.startsWith(config.prefix)) return;
+    if (!cmd.startsWith(prefix)) return;
 
     var userCmd = cmd.slice(prefix.length);
     let commandfile = bot.commands.get(userCmd) || bot.aliases.get(userCmd);
