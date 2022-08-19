@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) => {
   var koleCheck = message.author.id == '247498651859943425';
   if(!koleCheck) return message.reply("Only the corn master may use such a prestigous command.");
 
-  const list = data.cancer;
+  const list = data.koleQuotes;
   let num = Math.floor(Math.random() * list.length);
   const quote = statuses[num];
   message.reply(quote + " **[#" + (num+1) + "]**");
