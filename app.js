@@ -5,8 +5,8 @@ const data = require("./data.json");
 const userList = require("./userList.json");
 const Discord = require("discord.js");
 const fs = require("fs");
-const { GatewayIntentBits, Partials } = require('discord.js');
-const bot = new Discord.Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent], partials: [Partials.Message, Partials.Channel, Partials.Reaction, Partials.User] });
+const { GatewayIntentBits, Partials, ActivityType } = require('discord.js');
+const bot = new Discord.Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildPresences], partials: [Partials.Message, Partials.Channel, Partials.Reaction, Partials.User] });
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 
@@ -91,7 +91,7 @@ function botCheck(message) {
                     var r = Math.floor(Math.random() * (100 - 1 + 1) + 1);
                     const date = new Date();
                     const difference = Math.abs(date-lastSilence) / (60*60*1000);   // difference in hours
-                    if(r <= 25 && difference >= 1) {                                // 1h cooldown
+                    if(r <= 25 && difference >= 0.5) {                              // 30m cooldown
                         message.channel.send("**Silence, bots.**");
                         lastSilence = date;
                     }
@@ -129,19 +129,31 @@ function handleResponses(message) {
 }
 
 // check for streaming status
-bot.on('presenceUpdate', (oldMember, newMember) => {
-    var id = newMember.id;
-    var valid = false;
-    for(let i = 0; i < streamers.streamers.length; i++) {
-        if(id == streamers.streamers[i].id) {
-            valid = true;
-            break;
+global.streamActive = false;
+bot.on('presenceUpdate', (oldPresence, newPresence) => {
+    const member = newPresence.member;
+    const streamer = streamers.streamers.find(s => s.id === member.id);
+    if(!streamer) return;
+
+    // check if user is streaming
+    for(let i = 0; i < newPresence.activities.length; i++) {
+        if(newPresence.activities[i].type == ActivityType.Streaming) {
+            streamActive = true;
+            bot.user.setActivity(streamer.name, { type: ActivityType.Streaming, url: streamer.link });
+            return;
         }
     }
-    if(valid &&
-        oldMember.presence.activities[0].type != bot.ActivityType.Streaming &&
-        newMember.presence.activities[0].type == bot.ActivityType.Streaming) {
-        bot.user.setActivity(newMember.displayName, { type: "WATCHING", url: newMember.presence.activities[0].url });
+
+    // check if user stopped streaming
+    if(!oldPresence) return;
+    for(let i = 0; i < oldPresence.activities.length; i++) {
+        if(oldPresence.activities[i].type == ActivityType.Streaming) {
+            // ensure no activity is still streaming
+            for(let j = 0; j < newPresence.activities.length; j++) {
+                if(newPresence.activities[j].type == ActivityType.Streaming) return;
+            }
+            streamActive = false;
+        }
     }
 });
 
@@ -191,7 +203,11 @@ function getGuildSetting(message, key) {
     return guild[key];
 }
 
-function setRandomActivity() {
+const checkStreams = require('./commands/checkStreams.js');
+async function setRandomActivity() {
+    await checkStreams.run(bot, null);
+    if(streamActive) return;
+
     const statuses = data.statuses;
     const status = statuses[Math.floor(Math.random() * statuses.length)];
     bot.user.setActivity(status.msg, { type: status.type });

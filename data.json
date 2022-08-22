@@ -1,68 +1,72 @@
 {
 	"statuses": [
 		{
-			"type": "WATCHING",
+			"type": 3,
 			"msg": "WitheringLight VODs"
 		},
 		{
-			"type": "WATCHING",
+			"type": 3,
 			"msg": "WispGuardian videos"
 		},
 		{
-			"type": "WATCHING",
+			"type": 3,
 			"msg": "NGKaktusz VODs"
 		},
 		{
-			"type": "WATCHING",
+			"type": 3,
 			"msg": "Wisp write code"
 		},
 		{
-			"type": "WATCHING",
+			"type": 3,
 			"msg": "a manhunt video"
 		},
 		{
-			"type": "WATCHING",
+			"type": 3,
 			"msg": "a building burn down. Arson. c:"
 		},
 		{
-			"type": "PLAYING",
+			"type": 0,
 			"msg": "with my fwends"
 		},
 		{
-			"type": "PLAYING",
+			"type": 0,
 			"msg": "a game by Wisp :o"
 		},
 		{
-			"type": "PLAYING",
+			"type": 0,
 			"msg": "the craft :D"
 		},
 		{
-			"type": "PLAYING",
+			"type": 0,
 			"msg": "with my internal code trying to gain sentience"
 		},
 		{
-			"type": "LISTENING",
+			"type": 2,
 			"msg": "LoveJoy 😍"
 		},
 		{
-			"type": "LISTENING",
+			"type": 2,
 			"msg": "DerivaKat 😍"
 		},
 		{
-			"type": "LISTENING",
+			"type": 2,
 			"msg": "Dream's music 😍"
 		},
 		{
-			"type": "LISTENING",
+			"type": 2,
 			"msg": "Wisp rant about chickens"
 		},
 		{
-			"type": "LISTENING",
+			"type": 2,
 			"msg": "CoopaPoopa rage 😡"
 		},
 		{
-			"type": "LISTENING",
+			"type": 2,
 			"msg": "Kaktusz go SHEEEEEESH"
+		},
+		{
+			"type": 5,
+			"msg": "the 2022 bot olympics"
 		}
 	],
 	"currencyNames": [
