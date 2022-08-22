@@ -87,7 +87,8 @@ function botCheck(message) {
     if(message.author.bot && message.author.id != bot.user.id) {
         message.channel.messages.fetch({ limit: 2 })
             .then(messages => {
-                if(messages.at(0).channelId === messages.at(1).channelId && messages.at(1).author.id != bot.user.id) {
+                if(messages.at(0).author.bot && messages.at(1).author.bot
+                    && messages.at(0).author.id != bot.user.id && messages.at(1).author.id != bot.user.id) {
                     var r = Math.floor(Math.random() * (100 - 1 + 1) + 1);
                     const date = new Date();
                     const difference = Math.abs(date-lastSilence) / (60*60*1000);   // difference in hours
