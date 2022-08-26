@@ -1,5 +1,6 @@
 {
         "ignored": [
-                {"name": "exampleName", "id": "-1"}
+                {"name": "exampleName", "id": "-1"},
+                {"name": "Streamcord", "id": "375805687529209857"}
         ]
 }

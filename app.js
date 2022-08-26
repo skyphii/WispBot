@@ -57,16 +57,12 @@ bot.ws.on('INTERACTION_CREATE', async (interaction) => {
 
 // Message
 bot.on("messageCreate", async (message) => {
-    // bot check
-    botCheck(message);
-
     // ignored user check
     var ignore = userList.ignored;
     var doIgnore = false;
-    ignore.forEach((u)=>{
-        if(message.author.id == u.id) doIgnore = true;
-    });
-    if(doIgnore) return;
+    if(ignore.find(user => user.id === message.author.id)) return;
+    
+    botCheck(message);
 
     handleResponses(message);
 
