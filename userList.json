@@ -1,6 +1,8 @@
 {
         "ignored": [
                 {"name": "exampleName", "id": "-1"},
-                {"name": "Streamcord", "id": "375805687529209857"}
+                {"name": "Streamcord", "id": "375805687529209857"},
+                {"name": "YAGPDB", "id": "204255221017214977"},
+                {"name": "Lofi Radio", "id": "830530156048285716"}
         ]
 }

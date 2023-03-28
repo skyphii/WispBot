@@ -5,14 +5,18 @@ const data = require("./data.json");
 const userList = require("./userList.json");
 const Discord = require("discord.js");
 const fs = require("fs");
-const { GatewayIntentBits, Partials, ActivityType } = require('discord.js');
+const { GatewayIntentBits, Partials, ActivityType, Routes } = require('discord.js');
 const bot = new Discord.Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildPresences], partials: [Partials.Message, Partials.Channel, Partials.Reaction, Partials.User] });
 bot.commands = new Discord.Collection();
+bot.slashCommands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 
+const { REST } = require('@discordjs/rest');
+const rest = new REST({ version: '10' }).setToken(token.token);
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Console } = require("console");
 
+// load commands
 fs.readdir("./commands/", (err, files) => {
     if (err) console.log(err);
 
@@ -22,6 +26,7 @@ fs.readdir("./commands/", (err, files) => {
         return;
     }
 
+    console.log('Loading commands:');
     jsfile.forEach((f, i) => {
         let props = require(`./commands/${f}`);
         console.log(`${f} loaded!`);
@@ -33,6 +38,43 @@ fs.readdir("./commands/", (err, files) => {
         }
     });
 });
+// load slash-commands
+const slashCommandData = [];
+const slashCommandFiles = fs.readdirSync('./commands/slash').filter(file => file.endsWith('.js'));
+console.log('Loading slash commands:');
+for (const file of slashCommandFiles) {
+	const command = require(`./commands/slash/${file}`);
+    console.log(`${file} loaded!`);
+	bot.slashCommands.set(command.data.name, command);
+    slashCommandData.push(command.data.toJSON());
+}
+// post slash commands
+(async () => {
+	try {
+		console.log(`Started refreshing ${bot.slashCommands.length} application (/) commands.`);
+
+        // register guild command (for testing)
+		// const data = await rest.put(
+		// 	Routes.applicationGuildCommands(config.clientID, '611394586023034880'),
+		// 	    { body: slashCommandData },
+		// );
+
+        // global registration
+        const data = await rest.put(
+            Routes.applicationCommands(config.clientID),
+                { body: slashCommandData },
+        );
+
+        // delete guild commands by id
+        // rest.delete(Routes.applicationGuildCommand(config.clientID, '611394586023034880', '1014629946070675548'))
+        //     .then(() => console.log('Successfully deleted guild command'))
+        //     .catch(console.error);
+
+		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+	} catch (error) {
+		console.error(error);
+	}
+})();
 
 // Bot ready
 bot.on("ready", async () => {
@@ -47,12 +89,18 @@ bot.on("ready", async () => {
     setInterval(setRandomActivity, 60000); // new status every minute
 });
 
-bot.ws.on('INTERACTION_CREATE', async (interaction) => {
-    const command = interaction.data.name.toLowerCase();
-    // const args = interaction.data.options;
+bot.on('interactionCreate', async (interaction) => {
+    if(!interaction.isChatInputCommand()) return;
 
-    let commandFile = bot.commands.get(command);
-    if (commandFile) commandFile.run(bot, interaction);
+	const command = bot.slashCommands.get(interaction.commandName);
+	if(!command) return;
+
+	try {
+		await command.execute(interaction);
+	}catch(error) {
+		console.error(error);
+		// await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
 });
 
 // Message
@@ -208,42 +256,6 @@ async function setRandomActivity() {
     const statuses = data.statuses;
     const status = statuses[Math.floor(Math.random() * statuses.length)];
     bot.user.setActivity(status.msg, { type: status.type });
-}
-
-function registerSlashCommand() {
-    // const data = new SlashCommandBuilder()
-    //     .setName('flip')
-    //     .setDescription('Host/join a coinflip!')
-    //     .addIntegerOption(option => option.setName('amount').setDescription('Amount of bread to gamble.'))
-    //     .addUserOption(option => option.setName('user').setDescription('The user whose coinflip you would like to join.'));
-    // .addStringOption(option =>
-    //   option.setName('amount')
-    //     .setDescription('Amount of bread to give.')
-    //     .setRequired(true))
-    // .addUserOption(option =>
-    //   option.setName('user')
-    //     .setDescription('User to give bread to.')
-    //     .setRequired(true))
-    // .setDefaultPermission(false);
-
-    // var x = await bot.api.applications(bot.user.id).guilds(config.guildID).commands.post({
-    //     data
-    // });
-    // console.log(x);
-
-    // const permissions = [
-    //   {
-    //     id: '800576146743623701', // mod role id
-    //     type: 1,
-    //     permission: true,
-    //   },
-    // ];
-
-    // bot.api.applications(bot.user.id).guilds(config.guildID).commands('890083702288310322').permissions.put({
-    //   data: {
-    //       permissions
-    //   }
-    // });
 }
 
 bot.login(token.token);

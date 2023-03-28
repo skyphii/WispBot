@@ -2,11 +2,11 @@
 	"statuses": [
 		{
 			"type": 3,
-			"msg": "WitheringLight VODs"
+			"msg": "VanillaThaiTea VODs"
 		},
 		{
 			"type": 3,
-			"msg": "WispGuardian videos"
+			"msg": "skyphi videos"
 		},
 		{
 			"type": 3,
@@ -14,7 +14,7 @@
 		},
 		{
 			"type": 3,
-			"msg": "Wisp write code"
+			"msg": "skyphi write code"
 		},
 		{
 			"type": 3,
@@ -30,7 +30,7 @@
 		},
 		{
 			"type": 0,
-			"msg": "a game by Wisp :o"
+			"msg": "a game by skyphi :o"
 		},
 		{
 			"type": 0,
@@ -54,7 +54,7 @@
 		},
 		{
 			"type": 2,
-			"msg": "Wisp rant about chickens"
+			"msg": "skyphi rant about chickens"
 		},
 		{
 			"type": 2,
@@ -89,16 +89,17 @@
 		"seedless watermelons",
 		"coop-coins",
 		"sheeshes",
-		"thorns"
+		"thorns",
+		"snowflakes"
 	],
 	"guilds": [
 		{
-			"name": "Wisp",
+			"name": "skyphi",
 			"id": "333354810646593537",
 			"prefix": "."
 		},
 		{
-			"name": "Light",
+			"name": "Vanilla",
 			"id": "841865702633766912",
 			"prefix": "."
 		},
